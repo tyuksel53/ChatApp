@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -19,19 +20,17 @@ namespace YazlabII_Client
         public Register()
         {
             InitializeComponent();
+            tbNewUserPassword.PasswordChar = '*';
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-
-            var response = KayitYap(tbNewUserUsername.Text, tbNewUserPassword.Text);
-
-            
-
+            KayitYap(tbNewUserUsername.Text, tbNewUserPassword.Text);
         }
 
-        private async Task<string> KayitYap(string username,string password)
+        private async void KayitYap(string username,string password)
         {
+            var serverUri = ConfigurationSettings.AppSettings["ServerUri"];
             var values = new Dictionary<string, string>
             {
                 { "Username", username },
@@ -40,13 +39,24 @@ namespace YazlabII_Client
 
             var content = new FormUrlEncodedContent(values);
 
-            var response = await client.PostAsync("http://192.168.0.28/yazlabi/Register/Register", content);
+            var response = await client.PostAsync(serverUri + "/Register/Register", content);
 
             var responseString = await response.Content.ReadAsStringAsync();
 
-            MessageBox.Show(responseString);
-
-            return responseString;
+            if (responseString == "\"Basarili\"")
+            {
+                MessageBox.Show("Kayit Gerçekleştirildi");
+                this.Close();
+            }
+            else if (responseString == "\"Kullanıcı Adi Alinmis\"")
+            {
+                MessageBox.Show("Kullanıcı adi alinmis.Farklı bir kullanıcı adi ile tekrar deneyin");
+            }
+            else
+            {
+                MessageBox.Show("Bir şeyler ters gitti");
+            }
+            
         }
     }
 }
