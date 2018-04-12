@@ -53,7 +53,9 @@ namespace YazlabII_Client
                 {
                     var logedInUser = new User(responseString);
                     MessageBox.Show("Giris basarili");
-                    this.Close();
+                    AnaSayfa pencere = new AnaSayfa(responseString);
+                    pencere.Show();
+                    this.Hide();
                 }
                 catch (Exception e)
                 {

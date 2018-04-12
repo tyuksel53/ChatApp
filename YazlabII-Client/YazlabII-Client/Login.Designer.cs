@@ -81,25 +81,25 @@
             // RegisterNewUser
             // 
             this.RegisterNewUser.AutoSize = true;
-            this.RegisterNewUser.Location = new System.Drawing.Point(9, 196);
+            this.RegisterNewUser.Location = new System.Drawing.Point(9, 174);
             this.RegisterNewUser.Name = "RegisterNewUser";
             this.RegisterNewUser.Size = new System.Drawing.Size(96, 13);
             this.RegisterNewUser.TabIndex = 5;
             this.RegisterNewUser.Text = "Register New User";
             this.RegisterNewUser.Click += new System.EventHandler(this.Register_Click);
             // 
-            // Form1
+            // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(169, 232);
+            this.ClientSize = new System.Drawing.Size(169, 195);
             this.Controls.Add(this.RegisterNewUser);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tbPassword);
             this.Controls.Add(this.Password);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbUsername);
-            this.Name = "Form1";
+            this.Name = "Login";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
