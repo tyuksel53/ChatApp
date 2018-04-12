@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2011
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YazlabII-Api", "YazlabII-Api\YazlabII-Api.csproj", "{856FC088-7343-44E0-AD22-3FE3160D9FB8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{856FC088-7343-44E0-AD22-3FE3160D9FB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{856FC088-7343-44E0-AD22-3FE3160D9FB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{856FC088-7343-44E0-AD22-3FE3160D9FB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{856FC088-7343-44E0-AD22-3FE3160D9FB8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {395377DF-FDA4-4E3C-BF62-A5FE7205CFC2}
+	EndGlobalSection
+EndGlobal

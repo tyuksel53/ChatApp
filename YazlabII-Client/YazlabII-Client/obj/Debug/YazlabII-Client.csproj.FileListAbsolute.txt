@@ -1,0 +1,11 @@
+C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Client\YazlabII-Client\bin\Debug\YazlabII-Client.exe.config
+C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Client\YazlabII-Client\bin\Debug\YazlabII-Client.exe
+C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Client\YazlabII-Client\bin\Debug\YazlabII-Client.pdb
+C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Client\YazlabII-Client\obj\Debug\YazlabII-Client.csprojResolveAssemblyReference.cache
+C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Client\YazlabII-Client\obj\Debug\YazlabII_Client.Form1.resources
+C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Client\YazlabII-Client\obj\Debug\YazlabII_Client.Properties.Resources.resources
+C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Client\YazlabII-Client\obj\Debug\YazlabII-Client.csproj.GenerateResource.cache
+C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Client\YazlabII-Client\obj\Debug\YazlabII-Client.csproj.CoreCompileInputs.cache
+C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Client\YazlabII-Client\obj\Debug\YazlabII-Client.exe
+C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Client\YazlabII-Client\obj\Debug\YazlabII-Client.pdb
+C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Client\YazlabII-Client\obj\Debug\YazlabII_Client.Register.resources
