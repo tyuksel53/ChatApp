@@ -7,11 +7,15 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Web;
+using YazlabII_Api.Models;
+using YazlabII_Api.Models.Managers;
 
 namespace YazlabII_Api
 {
     public sealed class MySocket
     {
+        DatabaseContext db = new DatabaseContext();
+
         private static readonly MySocket instance = new MySocket();
 
         private IPAddress ip;
@@ -19,6 +23,7 @@ namespace YazlabII_Api
         private TcpListener Listener;
         public bool KeepRuning { get; set; }
         public List<TcpClient> mClients;
+        public Dictionary<string, User> ConnectedUsers;
 
         public static MySocket Instance
         {
@@ -28,6 +33,7 @@ namespace YazlabII_Api
         public MySocket()
         {
             mClients = new System.Collections.Generic.List<TcpClient>();
+            ConnectedUsers = new Dictionary<string, User>();
         }
 
 
@@ -76,12 +82,42 @@ namespace YazlabII_Api
 
                     if (nRet == 0)
                     {
+                        User dummy;
+                        if (ConnectedUsers.TryGetValue(paramClient.Client.RemoteEndPoint.ToString(), out dummy))
+                        {
+                            ConnectedUsers.Remove(paramClient.Client.RemoteEndPoint.ToString());
+                            dummy = db.Users.FirstOrDefault(x => x.Username == dummy.Username);
+                            if (dummy != null)
+                            {
+                                dummy.IsUserOnline = false;
+                                db.SaveChanges();
+                            }
+                        }
                         RemoveClient(paramClient);
                         Debug.WriteLine("İstemci ayrildi");
                         break;
                     }
 
                     string receivedData = new string(buff);
+                    if (receivedData.StartsWith("Login="))
+                    {
+                        receivedData =  receivedData.Replace("Login=", "");
+                        var usernameAndPass = receivedData.Split('&');
+                        var username = usernameAndPass[0];
+                        var password = usernameAndPass[1];
+
+                        var user = db.Users.FirstOrDefault(x =>
+                            x.Username == username && x.Password == password);
+
+                        if (user != null)
+                        {
+                            var userIp = paramClient.Client.RemoteEndPoint.ToString();
+                            user.CurrentIp = userIp;
+                            ConnectedUsers.Add(userIp,user);
+                            db.SaveChanges();
+                        }
+
+                    }
                     Debug.WriteLine("Data Received: " + receivedData);
                     Array.Clear(buff,0,buff.Length);
 

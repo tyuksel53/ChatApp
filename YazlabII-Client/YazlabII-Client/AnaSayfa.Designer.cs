@@ -75,7 +75,7 @@
             // 
             this.lvKullanicilar.Location = new System.Drawing.Point(133, 48);
             this.lvKullanicilar.Name = "lvKullanicilar";
-            this.lvKullanicilar.Size = new System.Drawing.Size(166, 251);
+            this.lvKullanicilar.Size = new System.Drawing.Size(221, 251);
             this.lvKullanicilar.TabIndex = 7;
             this.lvKullanicilar.UseCompatibleStateImageBehavior = false;
             // 
@@ -83,7 +83,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(315, 338);
+            this.ClientSize = new System.Drawing.Size(366, 338);
             this.Controls.Add(this.lvKullanicilar);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lbOturumAcmaTarihi);

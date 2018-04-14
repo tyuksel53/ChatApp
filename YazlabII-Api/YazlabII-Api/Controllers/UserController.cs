@@ -20,9 +20,6 @@ namespace YazlabII_Api.Controllers
             var user = db.Users.FirstOrDefault(x => x.Username == username && x.Password == password);
             if (user != null)
             {
-                user.CurrentIp = HttpContext.Current.Request.UserHostAddress;
-                user.LastLoginTime = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss");
-                user.IsUserOnline = true;
                 db.SaveChanges();
                 return Request.CreateResponse(HttpStatusCode.OK, user);
             }
@@ -34,22 +31,15 @@ namespace YazlabII_Api.Controllers
         [HttpGet]
         public HttpResponseMessage AllUsers()
         {
-
-            var beniDovdulerabi = MySocket.Instance.mClients;
             var allUsers = db.Users.ToList();
             List<User> updatedUsers = new List<User>();
+            User dummy;
             foreach (var user in allUsers)
             {
-                var span = DateTime.Now - DateTime.Parse(user.LastLoginTime);
-                if (span.Days == 0 && span.Hours == 0 && span.Minutes == 0 && span.Seconds <= 15)
+                if (MySocket.Instance.ConnectedUsers.TryGetValue(user.CurrentIp, out dummy))
                 {
                     user.IsUserOnline = true;
                 }
-                else
-                {
-                    user.IsUserOnline = false;
-                }
-
                 updatedUsers.Add(user);
             }
 

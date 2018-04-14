@@ -28,8 +28,8 @@ namespace YazlabII_Client
             this.FormClosed += new FormClosedEventHandler(Form1_Closing);
 
             MySocketClient.Instance.ConnectToServer();
-
             LoggedInUser = new User(currentUser);
+            MySocketClient.Instance.SendDataToServer("Login="+LoggedInUser.Username + "&" + LoggedInUser.Password + "&");
             lbUsername.Text = LoggedInUser.Username;
             lbOturumAcmaTarihi.Text = "Oturum Acma Zamanınız: \n"+ LoggedInUser.LastLoginTime;
             pbUserImg.Load("http://www.gravatar.com/avatar/6810d91caff032b202c50701dd3af745?d=identicon&r=PG");
@@ -52,39 +52,40 @@ namespace YazlabII_Client
         }
 
         private async void KullanicilariGetir()
-        {   
-            //var serverUri = ConfigurationSettings.AppSettings["ServerUri"];
+        {
+            var serverUri = ConfigurationSettings.AppSettings["ServerUri"];
 
-            //var responseString = await client.GetStringAsync(serverUri + "/User/AllUsers");
-            //AllUsers.Clear();
-            //JArray arry = JArray.Parse(responseString);
-            //lvKullanicilar.Items.Clear();
-            //foreach (var userObject in arry.Children<JObject>())
-            //{
-            //    var user = new User();
-            //    user.Id = Convert.ToInt32(userObject["Id"]);
-            //    user.Username = userObject["Username"].ToString();
-            //    user.Password = userObject["Password"].ToString();
-            //    user.CurrentIp = userObject["Username"].ToString();
-            //    user.ImgUrl = userObject["ImgUrl"].ToString();
-            //    user.IsUserOnline = Convert.ToBoolean(userObject["IsUserOnline"]);
-            //    user.LastLoginTime = userObject["LastLoginTime"].ToString();
-            //    AllUsers.Add(user);
-
-            //    if (user.Username != LoggedInUser.Username)
-            //    {
-            //        if (user.IsUserOnline)
-            //        {
-            //            lvKullanicilar.Items.Add(new ListViewItem(new[] { user.Username, "ONLINE" })).SubItems[0].BackColor = Color.Green;
-            //        }
-            //        else
-            //        {
-            //            lvKullanicilar.Items.Add(new ListViewItem(new[] { user.Username, "OFFLINE" })).BackColor = Color.Red;
-            //        }
-            //    }
+            var responseString = await client.GetStringAsync(serverUri + "/User/AllUsers");
+            AllUsers.Clear();
+            JArray arry = JArray.Parse(responseString);
+            lvKullanicilar.Items.Clear();
+            foreach (var userObject in arry.Children<JObject>())
+            {
+                var user = new User();
+                user.Id = Convert.ToInt32(userObject["Id"]);
+                user.Username = userObject["Username"].ToString();
+                user.Password = userObject["Password"].ToString();
+                user.CurrentIp = userObject["CurrentIp"].ToString();
+                user.ImgUrl = userObject["ImgUrl"].ToString();
+                user.IsUserOnline = Convert.ToBoolean(userObject["IsUserOnline"]);
+                user.LastLoginTime = userObject["LastLoginTime"].ToString();
                 
 
-            //}
+                if (user.Username != LoggedInUser.Username)
+                {
+                    AllUsers.Add(user);
+                    if (user.IsUserOnline)
+                    {
+                        lvKullanicilar.Items.Add(new ListViewItem(new[] { user.Username, "ONLINE",user.CurrentIp })).SubItems[0].BackColor = Color.Green;
+                    }
+                    else
+                    {
+                        lvKullanicilar.Items.Add(new ListViewItem(new[] { user.Username, "OFFLINE",user.CurrentIp })).BackColor = Color.Red;
+                    }
+                }
+
+
+            }
 
         }
 
