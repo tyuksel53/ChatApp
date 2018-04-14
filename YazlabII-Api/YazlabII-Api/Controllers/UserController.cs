@@ -34,6 +34,8 @@ namespace YazlabII_Api.Controllers
         [HttpGet]
         public HttpResponseMessage AllUsers()
         {
+
+            var beniDovdulerabi = MySocket.Instance.mClients;
             var allUsers = db.Users.ToList();
             List<User> updatedUsers = new List<User>();
             foreach (var user in allUsers)
@@ -54,18 +56,6 @@ namespace YazlabII_Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK,updatedUsers);
         }
 
-        [HttpGet]
-        public HttpResponseMessage Iamhere(string username)
-        {
-            var user = db.Users.FirstOrDefault(x => x.Username == username);
-            if (user != null)
-            {
-                user.LastLoginTime = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss");
-                db.SaveChanges();
-            }
-
-            return Request.CreateResponse(HttpStatusCode.OK,"Başarili");
-        }
 
     }
 }

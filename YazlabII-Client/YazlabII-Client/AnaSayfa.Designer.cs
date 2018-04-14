@@ -31,7 +31,6 @@
             this.pbUserImg = new System.Windows.Forms.PictureBox();
             this.lbUsername = new System.Windows.Forms.Label();
             this.lbOturumAcmaTarihi = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lvKullanicilar = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.pbUserImg)).BeginInit();
@@ -63,19 +62,10 @@
             this.lbOturumAcmaTarihi.TabIndex = 2;
             this.lbOturumAcmaTarihi.Text = "label2";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(150, 15);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(77, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Sohbet Odalari";
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(470, 15);
+            this.label4.Location = new System.Drawing.Point(130, 26);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(87, 13);
             this.label4.TabIndex = 6;
@@ -83,9 +73,9 @@
             // 
             // lvKullanicilar
             // 
-            this.lvKullanicilar.Location = new System.Drawing.Point(473, 31);
+            this.lvKullanicilar.Location = new System.Drawing.Point(133, 48);
             this.lvKullanicilar.Name = "lvKullanicilar";
-            this.lvKullanicilar.Size = new System.Drawing.Size(129, 251);
+            this.lvKullanicilar.Size = new System.Drawing.Size(166, 251);
             this.lvKullanicilar.TabIndex = 7;
             this.lvKullanicilar.UseCompatibleStateImageBehavior = false;
             // 
@@ -93,10 +83,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(640, 338);
+            this.ClientSize = new System.Drawing.Size(315, 338);
             this.Controls.Add(this.lvKullanicilar);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.lbOturumAcmaTarihi);
             this.Controls.Add(this.lbUsername);
             this.Controls.Add(this.pbUserImg);
