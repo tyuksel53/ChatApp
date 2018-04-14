@@ -147,7 +147,7 @@ namespace YazlabII_Client
         private void lvKullanicilar_SelectedIndexChanged(object sender, EventArgs e)
         {
             string isUserOnline = lvKullanicilar.SelectedItems[0].SubItems[1].Text;
-            if (isUserOnline == "ONLINE" && !MySocketClient.Instance.currentChats.Contains(lvKullanicilar.SelectedItems[0].SubItems[0].Text))
+            if (isUserOnline == "ONLINE")
             {
                 string ip = lvKullanicilar.SelectedItems[0].SubItems[2].Text;
                 MySocketClient.Instance.SendDataToServer("UserWantsToTalkTo=" + LoggedInUser.Username + "&"

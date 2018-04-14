@@ -20,7 +20,6 @@ namespace YazlabII_Client
         private int mServerPortNumber;
         public TcpClient mClient;
         public string username;
-        public List<string> currentChats;
         public static MySocketClient Instance
         {
             get { return instance; }
@@ -46,7 +45,6 @@ namespace YazlabII_Client
         {
             IPAddress ipAddress = null;
             mClient = null;
-            currentChats = new List<string>();
             if (IPAddress.TryParse(ConfigurationSettings.AppSettings["ServerIp"], out ipAddress))
             {
                 mServerAddress = ipAddress;
@@ -96,19 +94,15 @@ namespace YazlabII_Client
                     if (message.StartsWith("UserWantsToTalkTo="))
                     {
                         message = message.Replace("UserWantsToTalkTo=", "");
-                        if (!currentChats.Contains(message.Split(' ')[0]))
+                        var param = message.Split('&');
+                        DialogResult dialogResult = MessageBox.Show(param[0], "Konusma Daveti", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
                         {
-                            var param = message.Split('&');
-                            DialogResult dialogResult = MessageBox.Show(param[0], "Konusma Daveti", MessageBoxButtons.YesNo);
-                            if (dialogResult == DialogResult.Yes)
-                            {
-                                currentChats.Add(message.Split(' ')[0]);
-                                SendDataToServer("UserKonusmayıKabulEtti=" + param[1] + "&" + username + "&");
-                                KonusmaPenceresi pencere = new KonusmaPenceresi(message.Split(' ')[0] + "&" + param[1]);
-                                pencere.Show();
-                            }
+                            SendDataToServer("UserKonusmayıKabulEtti=" + param[1] + "&" + username + "&");
+                            KonusmaPenceresi pencere = new KonusmaPenceresi(message.Split(' ')[0] + "&" + param[1]);
+                            pencere.Show();
                         }
-                       
+
                     }
 
                     if (message.StartsWith("StartConversition="))
