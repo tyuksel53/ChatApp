@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,8 +22,9 @@ namespace YazlabII_Client
         private User LoggedInUser;
         private List<User> AllUsers = new List<User>();
         private Timer myTimer;
-
+        public static Dictionary<string,Bitmap> resimler = new Dictionary<string, Bitmap>();
         public bool control = false;
+        
 
         public AnaSayfa(string currentUser)
         {
@@ -35,11 +38,18 @@ namespace YazlabII_Client
             MySocketClient.Instance.SendDataToServer("Login="+LoggedInUser.Username + "&" + LoggedInUser.Password + "&");
             lbUsername.Text = LoggedInUser.Username;
             lbOturumAcmaTarihi.Text = "Oturum Acma Zamanınız: \n"+ LoggedInUser.LastLoginTime;
-            pbUserImg.Load("http://www.gravatar.com/avatar/6810d91caff032b202c50701dd3af745?d=identicon&r=PG");
-            lvKullanicilar.Columns.Add("Username");
+            var serverUri = ConfigurationSettings.AppSettings["ServerUri"];
+            if (LoggedInUser.ImgUrl != "")
+            {
+                pbUserImg.SizeMode = PictureBoxSizeMode.StretchImage;
+                pbUserImg.Load(serverUri + LoggedInUser.ImgUrl);
+            }
+            lvKullanicilar.Columns.Add("Username                   ");
             lvKullanicilar.Columns.Add("Durum");
             lvKullanicilar.Columns.Add("IP");
+            
             lvKullanicilar.View = View.Details;
+            lvKullanicilar.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
             //lvKullanicilar.c
             myTimer = new Timer();
@@ -62,6 +72,9 @@ namespace YazlabII_Client
             AllUsers.Clear();
             JArray arry = JArray.Parse(responseString);
             lvKullanicilar.Items.Clear();
+            ImageList il = new ImageList();
+            il.ImageSize = new Size(50,50);
+            int i = 0;
             foreach (var userObject in arry.Children<JObject>())
             {
                 var user = new User();
@@ -72,24 +85,54 @@ namespace YazlabII_Client
                 user.ImgUrl = userObject["ImgUrl"].ToString();
                 user.IsUserOnline = Convert.ToBoolean(userObject["IsUserOnline"]);
                 user.LastLoginTime = userObject["LastLoginTime"].ToString();
-                
+                if (user.ImgUrl != "")
+                {
+                    il.Images.Add(user.Username,LoadImage(serverUri + user.ImgUrl,user.Username));
+                }
 
                 if (user.Username != LoggedInUser.Username)
                 {
                     AllUsers.Add(user);
                     if (user.IsUserOnline)
                     {
-                        lvKullanicilar.Items.Add(new ListViewItem(new[] { user.Username, "ONLINE",user.CurrentIp })).SubItems[0].BackColor = Color.Green;
+                        var mundi = new ListViewItem(new[] {user.Username, "ONLINE", user.CurrentIp});
+                        mundi.ImageKey = user.Username;
+                        lvKullanicilar.Items.Add(mundi).SubItems[0].BackColor = Color.Green;
                     }
                     else
                     {
-                        lvKullanicilar.Items.Add(new ListViewItem(new[] { user.Username, "OFFLINE",user.CurrentIp })).BackColor = Color.Red;
+                        var mundi = new ListViewItem(new[] { user.Username, "OFFLINE", user.CurrentIp });
+                        mundi.ImageKey = user.Username;
+                        lvKullanicilar.Items.Add(mundi).BackColor = Color.Red;
                     }
                 }
 
 
             }
+            lvKullanicilar.SmallImageList = il;
 
+        }
+
+        private Image LoadImage(string url,string username)
+        {
+            Bitmap dummy;
+            if(resimler.TryGetValue(username,out dummy))
+            {
+                return dummy;
+            }
+            
+            System.Net.WebRequest request =
+                System.Net.WebRequest.Create(url);
+
+            System.Net.WebResponse response = request.GetResponse();
+            System.IO.Stream responseStream =
+                response.GetResponseStream();
+
+            Bitmap bmp = new Bitmap(responseStream);
+
+            responseStream.Dispose();
+            resimler.Add(username,bmp);
+            return bmp;
         }
 
         private void Form1_Closing(object sender, FormClosedEventArgs e)
@@ -129,6 +172,40 @@ namespace YazlabII_Client
                 if (f.Name != "Login")
                     f.Close();
             }
+
+        }
+
+        private void btnFileUpload_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Multiselect = false;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                string path = dialog.FileName; // get name of file
+                pbUserImg.Load(path);
+                Upload(path);
+            }
+        }
+
+        private void Upload(string fileName)
+        {
+            var client = new WebClient();
+            var serverUri = ConfigurationSettings.AppSettings["ServerUri"];
+            var uri = new Uri(serverUri+"/User/Upload?username="+LoggedInUser.Username );
+            try
+            {
+                client.Headers.Add("fileName", System.IO.Path.GetFileName(fileName));
+                var data = System.IO.File.ReadAllBytes(fileName);
+                client.UploadDataAsync(uri, data);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
 
         }
     }

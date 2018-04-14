@@ -125,6 +125,12 @@ namespace YazlabII_Client
                         OnRaise(new MySocketEventHandler(parameters[0], parameters[1]));
                     }
 
+
+                    if (message.StartsWith("!!!RESIM!!!"))
+                    {
+                        AnaSayfa.resimler.Clear();
+                    }
+
                     Debug.WriteLine("Message Received: " + message );
 
                     Array.Clear(buff,0,buff.Length);

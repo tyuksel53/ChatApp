@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using YazlabII_Api.Models;
@@ -45,6 +47,32 @@ namespace YazlabII_Api.Controllers
             }
 
             return Request.CreateResponse(HttpStatusCode.OK,updatedUsers);
+        }
+
+        [HttpPost]
+        public async Task<object> Upload(string username)
+        {
+            var user = db.Users.FirstOrDefault(x => x.Username == username);
+            if (user != null)
+            {
+                var file = await Request.Content.ReadAsByteArrayAsync();
+                var fileName = Request.Headers.GetValues("fileName").FirstOrDefault();
+                var filePath = "/Uploads/";
+                try
+                {
+                    File.WriteAllBytes(HttpContext.Current.Server.MapPath(filePath) + fileName, file);
+                    user.ImgUrl = "Uploads/" + fileName;
+                    db.SaveChanges();
+                    MySocket.Instance.sendToAll("!!!RESIM!!!");
+                }
+                catch (Exception ex)
+                {
+                    // ignored
+                }
+            }
+           
+
+            return null;
         }
 
 

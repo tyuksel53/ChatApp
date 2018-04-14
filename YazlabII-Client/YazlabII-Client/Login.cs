@@ -20,7 +20,13 @@ namespace YazlabII_Client
         public Login()
         {
             InitializeComponent();
+            this.FormClosed += new FormClosedEventHandler(Form1_Closing);
             tbPassword.PasswordChar = '*';
+        }
+
+        private void Form1_Closing(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
 
         private void Register_Click(object sender, EventArgs e)

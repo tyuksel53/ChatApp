@@ -22,6 +22,21 @@ namespace YazlabII_Client
             this.targetIp = param.Split('&')[1];
             MySocketClient.Instance.Handler += handler;
             lbHeader.Text = "Kullanıcı:" + MySocketClient.Instance.username + ", " + targetUsername + " ile konusuyor";
+            pbHostPicture.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbTargetPicture.SizeMode = PictureBoxSizeMode.StretchImage;
+            lbHostUsername.Text = MySocketClient.Instance.username;
+            lbTargetUsername.Text = targetUsername;
+
+            Bitmap dummy;
+            if (AnaSayfa.resimler.TryGetValue(targetUsername, out dummy))
+            {
+                pbTargetPicture.Image = dummy;
+            }
+
+            if (AnaSayfa.resimler.TryGetValue(MySocketClient.Instance.username, out dummy))
+            {
+                pbHostPicture.Image = dummy;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
