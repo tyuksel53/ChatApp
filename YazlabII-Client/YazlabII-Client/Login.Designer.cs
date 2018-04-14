@@ -40,7 +40,7 @@
             // 
             this.tbUsername.Location = new System.Drawing.Point(12, 44);
             this.tbUsername.Name = "tbUsername";
-            this.tbUsername.Size = new System.Drawing.Size(145, 20);
+            this.tbUsername.Size = new System.Drawing.Size(177, 20);
             this.tbUsername.TabIndex = 0;
             // 
             // label1
@@ -65,12 +65,12 @@
             // 
             this.tbPassword.Location = new System.Drawing.Point(12, 104);
             this.tbPassword.Name = "tbPassword";
-            this.tbPassword.Size = new System.Drawing.Size(145, 20);
+            this.tbPassword.Size = new System.Drawing.Size(177, 20);
             this.tbPassword.TabIndex = 3;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(82, 139);
+            this.button1.Location = new System.Drawing.Point(114, 141);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 4;
@@ -92,7 +92,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(169, 195);
+            this.ClientSize = new System.Drawing.Size(201, 207);
             this.Controls.Add(this.RegisterNewUser);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tbPassword);

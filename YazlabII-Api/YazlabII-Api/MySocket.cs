@@ -23,7 +23,7 @@ namespace YazlabII_Api
         private TcpListener Listener;
         public bool KeepRuning { get; set; }
         public List<TcpClient> mClients;
-        public Dictionary<string, User> ConnectedUsers;
+        public Dictionary<string, TcpClient> ConnectedUsers;
 
         public static MySocket Instance
         {
@@ -33,7 +33,7 @@ namespace YazlabII_Api
         public MySocket()
         {
             mClients = new System.Collections.Generic.List<TcpClient>();
-            ConnectedUsers = new Dictionary<string, User>();
+            ConnectedUsers = new Dictionary<string, TcpClient>();
         }
 
 
@@ -82,14 +82,15 @@ namespace YazlabII_Api
 
                     if (nRet == 0)
                     {
-                        User dummy;
-                        if (ConnectedUsers.TryGetValue(paramClient.Client.RemoteEndPoint.ToString(), out dummy))
+                        var ip = paramClient.Client.RemoteEndPoint.ToString();
+                        TcpClient dummy;
+                        if (ConnectedUsers.TryGetValue(ip, out dummy))
                         {
-                            ConnectedUsers.Remove(paramClient.Client.RemoteEndPoint.ToString());
-                            dummy = db.Users.FirstOrDefault(x => x.Username == dummy.Username);
-                            if (dummy != null)
+                            ConnectedUsers.Remove(ip);
+                            var dummyUser = db.Users.FirstOrDefault(x => x.CurrentIp == ip);
+                            if (dummyUser != null)
                             {
-                                dummy.IsUserOnline = false;
+                                dummyUser.IsUserOnline = false;
                                 db.SaveChanges();
                             }
                         }
@@ -113,10 +114,23 @@ namespace YazlabII_Api
                         {
                             var userIp = paramClient.Client.RemoteEndPoint.ToString();
                             user.CurrentIp = userIp;
-                            ConnectedUsers.Add(userIp,user);
+                            ConnectedUsers.Add(userIp,paramClient);
                             db.SaveChanges();
                         }
 
+                    }
+
+                    if (receivedData.StartsWith("UserWantsToTalkTo="))
+                    {
+                        receivedData = receivedData.Replace("UserWantsToTalkTo=", "");
+                        var parameters = receivedData.Split('&');
+                        var requestedBy = parameters[0];
+                        var toUserIp = parameters[1];
+                        TcpClient dummy;
+                        if (ConnectedUsers.TryGetValue(toUserIp, out dummy))
+                        {
+                            sendToOne("UserWantsToTalkTo="+requestedBy + " seninle konusmak istiyor", dummy);
+                        }
                     }
                     Debug.WriteLine("Data Received: " + receivedData);
                     Array.Clear(buff,0,buff.Length);
@@ -130,6 +144,23 @@ namespace YazlabII_Api
             }
         }
 
+        public async void sendToOne(string message, TcpClient toClient)
+        {
+            if (String.IsNullOrWhiteSpace(message))
+            {
+                return;
+            }
+
+            try
+            {
+                byte[] buff = Encoding.ASCII.GetBytes(message);
+                await toClient.GetStream().WriteAsync(buff,0,buff.Length);
+            }
+            catch (Exception e)
+            {
+                
+            }
+        }
         public async void sendToAll(string message)
         {
             if (String.IsNullOrWhiteSpace(message))

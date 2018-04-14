@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace YazlabII_Client
 {
@@ -72,7 +73,23 @@ namespace YazlabII_Client
                         break;
                     }
 
-                    Debug.WriteLine("Message Received: " + new string(buff));
+                    string message = new string(buff);
+
+                    if (message.StartsWith("UserWantsToTalkTo="))
+                    {
+                        message = message.Replace("UserWantsToTalkTo=", "");
+                        DialogResult dialogResult = MessageBox.Show(message, "Konusma Daveti", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            //do something
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            //do something else
+                        }
+                    }
+
+                    Debug.WriteLine("Message Received: " + message );
 
                     Array.Clear(buff,0,buff.Length);
                 }

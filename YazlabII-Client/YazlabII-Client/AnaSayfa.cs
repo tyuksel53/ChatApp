@@ -28,6 +28,7 @@ namespace YazlabII_Client
             this.FormClosed += new FormClosedEventHandler(Form1_Closing);
 
             MySocketClient.Instance.ConnectToServer();
+            MySocketClient.Instance.ReadDataAsync(MySocketClient.Instance.mClient);
             LoggedInUser = new User(currentUser);
             MySocketClient.Instance.SendDataToServer("Login="+LoggedInUser.Username + "&" + LoggedInUser.Password + "&");
             lbUsername.Text = LoggedInUser.Username;
@@ -95,5 +96,15 @@ namespace YazlabII_Client
            Application.Exit();
         }
 
+        private void lvKullanicilar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string isUserOnline = lvKullanicilar.SelectedItems[0].SubItems[1].Text;
+            if (isUserOnline == "ONLINE")
+            {
+                string ip = lvKullanicilar.SelectedItems[0].SubItems[2].Text;
+                MySocketClient.Instance.SendDataToServer("UserWantsToTalkTo=" + LoggedInUser.Username + "&"
+                                                         + ip + "&");
+            }
+        }
     }
 }

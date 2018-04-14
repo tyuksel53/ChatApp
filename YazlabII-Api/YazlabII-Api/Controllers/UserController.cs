@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Sockets;
 using System.Web;
 using System.Web.Http;
 using YazlabII_Api.Models;
@@ -33,7 +34,7 @@ namespace YazlabII_Api.Controllers
         {
             var allUsers = db.Users.ToList();
             List<User> updatedUsers = new List<User>();
-            User dummy;
+            TcpClient dummy;
             foreach (var user in allUsers)
             {
                 if (MySocket.Instance.ConnectedUsers.TryGetValue(user.CurrentIp, out dummy))

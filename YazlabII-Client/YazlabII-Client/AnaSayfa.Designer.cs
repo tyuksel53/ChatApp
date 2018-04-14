@@ -78,6 +78,7 @@
             this.lvKullanicilar.Size = new System.Drawing.Size(221, 251);
             this.lvKullanicilar.TabIndex = 7;
             this.lvKullanicilar.UseCompatibleStateImageBehavior = false;
+            this.lvKullanicilar.SelectedIndexChanged += new System.EventHandler(this.lvKullanicilar_SelectedIndexChanged);
             // 
             // AnaSayfa
             // 
