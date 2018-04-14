@@ -20,7 +20,8 @@ namespace YazlabII_Client
         private User LoggedInUser;
         private List<User> AllUsers = new List<User>();
         private Timer myTimer;
-        private Timer myTimer2;
+
+        public bool control = false;
 
         public AnaSayfa(string currentUser)
         {
@@ -93,8 +94,11 @@ namespace YazlabII_Client
 
         private void Form1_Closing(object sender, FormClosedEventArgs e)
         {
-           MySocketClient.Instance.Disconnect();
-           Application.Exit();
+            if (!control)
+            {
+                MySocketClient.Instance.Disconnect();
+                Application.Exit();
+            }
         }
 
         private void lvKullanicilar_SelectedIndexChanged(object sender, EventArgs e)
@@ -106,6 +110,26 @@ namespace YazlabII_Client
                 MySocketClient.Instance.SendDataToServer("UserWantsToTalkTo=" + LoggedInUser.Username + "&"
                                                          + ip + "&");
             }
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            MySocketClient.Instance.Disconnect();
+            control = true;
+            Login pencere = new Login();
+            pencere.Show();
+
+            List<Form> openForms = new List<Form>();
+
+            foreach (Form f in Application.OpenForms)
+                openForms.Add(f);
+
+            foreach (Form f in openForms)
+            {
+                if (f.Name != "Login")
+                    f.Close();
+            }
+
         }
     }
 }

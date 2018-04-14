@@ -33,6 +33,7 @@
             this.lbOturumAcmaTarihi = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lvKullanicilar = new System.Windows.Forms.ListView();
+            this.btnExit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbUserImg)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,11 +81,22 @@
             this.lvKullanicilar.UseCompatibleStateImageBehavior = false;
             this.lvKullanicilar.SelectedIndexChanged += new System.EventHandler(this.lvKullanicilar_SelectedIndexChanged);
             // 
+            // btnExit
+            // 
+            this.btnExit.Location = new System.Drawing.Point(12, 204);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(94, 23);
+            this.btnExit.TabIndex = 8;
+            this.btnExit.Text = "Baglantıyı Kes";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            // 
             // AnaSayfa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(366, 338);
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.lvKullanicilar);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lbOturumAcmaTarihi);
@@ -106,5 +118,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListView lvKullanicilar;
+        private System.Windows.Forms.Button btnExit;
     }
 }
