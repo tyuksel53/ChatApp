@@ -13,3 +13,4 @@ C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Client\YazlabII-Client\obj\D
 C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Client\YazlabII-Client\obj\Debug\YazlabII-Client.pdb
 C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Client\YazlabII-Client\bin\Debug\YazlabII-Client.pdb
 C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Client\YazlabII-Client\obj\Debug\YazlabII-Client.csprojResolveAssemblyReference.cache
+C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Client\YazlabII-Client\obj\Debug\YazlabII_Client.KonusmaPenceresi.resources

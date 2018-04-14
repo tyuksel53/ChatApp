@@ -26,10 +26,11 @@ namespace YazlabII_Client
         {
             InitializeComponent();
             this.FormClosed += new FormClosedEventHandler(Form1_Closing);
-
-            MySocketClient.Instance.ConnectToServer();
-            MySocketClient.Instance.ReadDataAsync(MySocketClient.Instance.mClient);
             LoggedInUser = new User(currentUser);
+            MySocketClient.Instance.SetUsername(LoggedInUser.Username);
+            MySocketClient.Instance.ConnectToServer();
+            
+            MySocketClient.Instance.ReadDataAsync(MySocketClient.Instance.mClient);
             MySocketClient.Instance.SendDataToServer("Login="+LoggedInUser.Username + "&" + LoggedInUser.Password + "&");
             lbUsername.Text = LoggedInUser.Username;
             lbOturumAcmaTarihi.Text = "Oturum Acma Zamanınız: \n"+ LoggedInUser.LastLoginTime;
@@ -99,7 +100,7 @@ namespace YazlabII_Client
         private void lvKullanicilar_SelectedIndexChanged(object sender, EventArgs e)
         {
             string isUserOnline = lvKullanicilar.SelectedItems[0].SubItems[1].Text;
-            if (isUserOnline == "ONLINE")
+            if (isUserOnline == "ONLINE" && !MySocketClient.Instance.currentChats.Contains(lvKullanicilar.SelectedItems[0].SubItems[0].Text))
             {
                 string ip = lvKullanicilar.SelectedItems[0].SubItems[2].Text;
                 MySocketClient.Instance.SendDataToServer("UserWantsToTalkTo=" + LoggedInUser.Username + "&"

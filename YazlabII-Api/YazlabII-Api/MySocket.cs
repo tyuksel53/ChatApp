@@ -129,9 +129,41 @@ namespace YazlabII_Api
                         TcpClient dummy;
                         if (ConnectedUsers.TryGetValue(toUserIp, out dummy))
                         {
-                            sendToOne("UserWantsToTalkTo="+requestedBy + " seninle konusmak istiyor", dummy);
+                            sendToOne("UserWantsToTalkTo="+requestedBy + " seninle konusmak istiyor&"
+                                      +paramClient.Client.RemoteEndPoint.ToString() +"&", dummy);
                         }
                     }
+
+                    if (receivedData.StartsWith("UserKonusmayıKabulEtti="))
+                    {
+                        receivedData = receivedData.Replace("UserKonusmayıKabulEtti=", "");
+                        var param = receivedData.Split('&');
+                        var targetIp = param[0];
+                        var requestedByUsername = param[1];
+                        TcpClient dummy;
+                        if (ConnectedUsers.TryGetValue(targetIp, out dummy))
+                        {
+                            sendToOne("StartConversition=" + requestedByUsername + "&"
+                                      + paramClient.Client.RemoteEndPoint.ToString() + "&", dummy);
+                            
+                        }
+                    }
+
+                    if (receivedData.StartsWith("MessageToUser="))
+                    {
+                        receivedData = receivedData.Replace("MessageToUser=","");
+                        var param = receivedData.Split('&');
+                        var targetUserName = param[0];
+                        var targetIp = param[1];
+                        var message = param[2];
+                        TcpClient dummy;
+                        if (ConnectedUsers.TryGetValue(targetIp, out dummy))
+                        {
+                            sendToOne("MessageReceived=" + targetUserName + "&"
+                                      + message + "&", dummy);
+                        }
+                    }
+
                     Debug.WriteLine("Data Received: " + receivedData);
                     Array.Clear(buff,0,buff.Length);
 

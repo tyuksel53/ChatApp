@@ -15,20 +15,38 @@ namespace YazlabII_Client
     public sealed class MySocketClient
     {
         private static readonly MySocketClient instance = new MySocketClient();
-
+        public EventHandler<MySocketEventHandler> Handler;
         private IPAddress mServerAddress;
         private int mServerPortNumber;
         public TcpClient mClient;
-
+        public string username;
+        public List<string> currentChats;
         public static MySocketClient Instance
         {
             get { return instance; }
         }
 
+        public void SetUsername(string _username)
+        {
+            username = _username;
+        }
+
+        protected void OnRaise(MySocketEventHandler e)
+        {
+            EventHandler<MySocketEventHandler> handler = Handler;
+
+            if (mClient != null)
+            {
+                handler(this, e);
+            }
+        }
+
+
         public MySocketClient()
         {
             IPAddress ipAddress = null;
             mClient = null;
+            currentChats = new List<string>();
             if (IPAddress.TryParse(ConfigurationSettings.AppSettings["ServerIp"], out ipAddress))
             {
                 mServerAddress = ipAddress;
@@ -78,15 +96,33 @@ namespace YazlabII_Client
                     if (message.StartsWith("UserWantsToTalkTo="))
                     {
                         message = message.Replace("UserWantsToTalkTo=", "");
-                        DialogResult dialogResult = MessageBox.Show(message, "Konusma Daveti", MessageBoxButtons.YesNo);
-                        if (dialogResult == DialogResult.Yes)
+                        if (!currentChats.Contains(message.Split(' ')[0]))
                         {
-                            //do something
+                            var param = message.Split('&');
+                            DialogResult dialogResult = MessageBox.Show(param[0], "Konusma Daveti", MessageBoxButtons.YesNo);
+                            if (dialogResult == DialogResult.Yes)
+                            {
+                                currentChats.Add(message.Split(' ')[0]);
+                                SendDataToServer("UserKonusmayıKabulEtti=" + param[1] + "&" + username + "&");
+                                KonusmaPenceresi pencere = new KonusmaPenceresi(message.Split(' ')[0] + "&" + param[1]);
+                                pencere.Show();
+                            }
                         }
-                        else if (dialogResult == DialogResult.No)
-                        {
-                            //do something else
-                        }
+                       
+                    }
+
+                    if (message.StartsWith("StartConversition="))
+                    {
+                        message = message.Replace("StartConversition=", "");
+                        KonusmaPenceresi pencere = new KonusmaPenceresi(message);
+                        pencere.Show();
+                    }
+
+                    if (message.StartsWith("MessageReceived="))
+                    {
+                        message = message.Replace("MessageReceived=", "");
+                        var parameters = message.Split('&');
+                        OnRaise(new MySocketEventHandler(parameters[0], parameters[1]));
                     }
 
                     Debug.WriteLine("Message Received: " + message );
