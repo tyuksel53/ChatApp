@@ -1,8 +1,12 @@
 # BLM306 YAZILIM LABORATUVARI II PORJE 2
 
 
-## BROWSER MESSENGER UYGULAMASI
+## MESSENGER UYGULAMASI
 
+![](screenshot/resim.png)
+### Ekran Görüntüsü
+
+![](screenshot/gif1.gif)
 
 ### Projenin Amacı:
 
@@ -11,7 +15,7 @@ Sunucu-istemci mimarisini kullanarak, istemciler arasında anlık mesajlaşma i�
 
 ### Sistem Mimarisi**
 
-IMG
+![](screenshot/mimari.png)
 
 
 **Yapılması Gerekenler:**
