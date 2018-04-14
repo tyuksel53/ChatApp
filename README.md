@@ -3,7 +3,6 @@
 
 ## MESSENGER UYGULAMASI
 
-![](screenshot/resim.png)
 ### Ekran Görüntüsü
 
 ![](screenshot/gif1.gif)
