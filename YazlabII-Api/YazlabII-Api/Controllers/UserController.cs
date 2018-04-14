@@ -49,6 +49,12 @@ namespace YazlabII_Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK,updatedUsers);
         }
 
+        [HttpGet]
+        public void sendAll()
+        {
+            MySocket.Instance.sendToAll("HEllo World");
+        }
+
         [HttpPost]
         public async Task<object> Upload(string username)
         {

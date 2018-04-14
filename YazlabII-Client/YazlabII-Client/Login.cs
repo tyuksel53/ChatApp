@@ -55,13 +55,14 @@ namespace YazlabII_Client
             }
             else
             {
+                var logedInUser = new User(responseString);
+                MessageBox.Show("Giris basarili");
+                AnaSayfa pencere = new AnaSayfa(responseString);
+                pencere.Show();
+                this.Hide();
                 try
                 {
-                    var logedInUser = new User(responseString);
-                    MessageBox.Show("Giris basarili");
-                    AnaSayfa pencere = new AnaSayfa(responseString);
-                    pencere.Show();
-                    this.Hide();
+                    
                 }
                 catch (Exception e)
                 {
