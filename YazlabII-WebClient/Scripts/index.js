@@ -19,8 +19,11 @@ $("#girisYap").click(function(){
             data: loginData
         }).done(function (data) {
             sessionStorage.setItem("tokenKey", data.access_token);
+            sessionStorage.setItem("username", loginData.username);
+            alert("giris basarili");
+            window.location = "Anasayfa.html";
         }).fail(function(){
-            alert("patladı");
+            alert("Yanlış Kullanıcı Adı veya Şifre");
         });
         
     }else
@@ -30,21 +33,3 @@ $("#girisYap").click(function(){
 
 
 });
-
-$(document).ready(function (){
-    var connection = $.hubConnection(hostUrl);
-    var hub = connection.createHubProxy("ChatHub");
-    hub.on("AddMessage", Method);
-    connection.start({ jsonp: true })
-                .done(function () {
-                console.log('connected');
-            })
-            .fail(function (a) {
-                console.log('not connected'+a);
-            });
-});
-
-function Method(messageFromHub)
-{
-    alert(messageFromHub);
-}

@@ -84,6 +84,7 @@ C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Api\YazlabII-Api\bin\System.
 C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Api\YazlabII-Api\obj\Debug\YazlabII-Api.csprojResolveAssemblyReference.cache
 C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Api\YazlabII-Api\obj\Debug\YazlabII_Api.Migrations.InitialCreate.resources
 C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Api\YazlabII-Api\obj\Debug\YazlabII_Api.Migrations.userChange.resources
+C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Api\YazlabII-Api\obj\Debug\YazlabII_Api.Migrations.connection.resources
 C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Api\YazlabII-Api\obj\Debug\YazlabII-Api.csproj.GenerateResource.cache
 C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Api\YazlabII-Api\obj\Debug\YazlabII-Api.csproj.CoreCompileInputs.cache
 C:\Users\Taha\Desktop\calismalar\Yazlab-II\YazlabII-Api\YazlabII-Api\obj\Debug\YazlabII-Api.csproj.CopyComplete

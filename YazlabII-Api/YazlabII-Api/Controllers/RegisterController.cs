@@ -17,7 +17,7 @@ namespace YazlabII_Api.Controllers
         [HttpPost]
         public HttpResponseMessage Register(User newUser)
         {
-            var check = db.Users.FirstOrDefault(x => x.Username == newUser.Username);
+             var check = db.Users.FirstOrDefault(x => x.Username == newUser.Username);
             if (check == null)
             {
                 var ip = HttpContext.Current.Request.UserHostAddress;

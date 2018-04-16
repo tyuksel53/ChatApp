@@ -61,11 +61,12 @@ namespace YazlabII_Api.Controllers
             var user = db.Users.FirstOrDefault(x => x.Username == username);
             if (user != null)
             {
-                var file = await Request.Content.ReadAsByteArrayAsync();
-                var fileName = Request.Headers.GetValues("fileName").FirstOrDefault();
-                var filePath = "/Uploads/";
+               
                 try
                 {
+                    var file = await Request.Content.ReadAsByteArrayAsync();
+                    var fileName = Request.Headers.GetValues("UploadedImage").FirstOrDefault();
+                    var filePath = "/Uploads/";
                     File.WriteAllBytes(HttpContext.Current.Server.MapPath(filePath) + fileName, file);
                     user.ImgUrl = "Uploads/" + fileName;
                     db.SaveChanges();
@@ -79,6 +80,33 @@ namespace YazlabII_Api.Controllers
            
 
             return null;
+        }
+
+        [HttpPost]
+        public void UploadFile(string username)
+        {
+            var user = db.Users.FirstOrDefault(x => x.Username == username);
+            if (user != null)
+            {
+                if (HttpContext.Current.Request.Files.AllKeys.Any())
+                {
+                    // Get the uploaded image from the Files collection
+                    var httpPostedFile = HttpContext.Current.Request.Files["UploadedImage"];
+
+                    if (httpPostedFile != null)
+                    {
+                        // Validate the uploaded image(optional)
+
+                        // Get the complete file path
+                        var fileSavePath = Path.Combine(HttpContext.Current.Server.MapPath("~/Uploads"), httpPostedFile.FileName);
+                        user.ImgUrl = "Uploads/" + httpPostedFile.FileName;
+                        // Save the uploaded file to "UploadedFiles" folder
+                        httpPostedFile.SaveAs(fileSavePath);
+                        db.SaveChanges();
+                    }
+                }
+            }
+           
         }
 
 

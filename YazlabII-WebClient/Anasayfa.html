@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Anasayfa</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" 
+    rel="stylesheet" 
+    integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+    crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    </head>
+    <style>
+        .chat
+        {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .chat li
+        {
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px dotted #B3A9A9;
+        }
+        
+        .chat li.left .chat-body
+        {
+            margin-left: 60px;
+        }
+        
+        .chat li.right .chat-body
+        {
+            margin-right: 60px;
+        }
+        
+        
+        .chat li .chat-body p
+        {
+            margin: 0;
+            color: #777777;
+        }
+        
+        .panel .slidedown .glyphicon, .chat .glyphicon
+        {
+            margin-right: 5px;
+        }
+        
+        .panel-body
+        {
+            overflow-y: scroll;
+            height: 150px;
+        }
+        
+        ::-webkit-scrollbar-track
+        {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            background-color: #F5F5F5;
+        }
+        
+        ::-webkit-scrollbar
+        {
+            width: 12px;
+            background-color: #F5F5F5;
+        }
+        
+        ::-webkit-scrollbar-thumb
+        {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: #555;
+        }
+            </style>
+<body>
+
+    <div class="container" style="margin-top:50px">
+        <div class="row">
+            <div class="col-md-4">
+                <img id="userImage" name="userImage" height="200px" width="200px" class="img-fluid"/>
+                <div class="row">
+                    <div class="col-md-12" style="margin-top: 25px">
+                        <div>
+                            <label for="fileUpload">
+                            Dosyayı Seçin:
+                            <input id="fileUpload" style="margin-top:15px" type="file" />
+                            <input id="btnUploadFile" style="margin-top:15px" type="button" class="btn btn-info" value="Resim Yükle" />
+                        </div>
+                        <h4 id="LoginUsername" style="margin-top: 25px"></h4>
+                        <h4 id="GirisTarihi" style="margin-top: 25px"> </h4>
+                        <input type="button" id="baglantiyiKes" name="baglantiyiKes" style="margin-top: 15px" class="btn btn-danger" value="Baglantiyi Kes" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Durum</th>
+                            <th>IP</th>
+                            <th>Resim</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersBody">
+                        
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        <div class="row" style="margin-bottom:15px" id="chatSection">
+            
+    </div>
+
+<script src="Scripts/jquery.signalR-2.2.3.min.js"></script>
+<script src="http://192.168.1.105/yazlabi/signalr/hubs"></script>
+<script src="Scripts/anasayfa.js"></script>
+</body>
+</html>
+
+

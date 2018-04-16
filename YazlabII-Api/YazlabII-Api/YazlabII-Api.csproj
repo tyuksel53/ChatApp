@@ -134,8 +134,8 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="ChatHub.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\UserAuthenticationController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -148,7 +148,12 @@
     <Compile Include="Migrations\201804111644099_userChange.Designer.cs">
       <DependentUpon>201804111644099_userChange.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804160735300_connection.cs" />
+    <Compile Include="Migrations\201804160735300_connection.Designer.cs">
+      <DependentUpon>201804160735300_connection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Connection.cs" />
     <Compile Include="Models\Managers\DatabaseContext.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="MySocket.cs" />
@@ -184,6 +189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804111644099_userChange.resx">
       <DependentUpon>201804111644099_userChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804160735300_connection.resx">
+      <DependentUpon>201804160735300_connection.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
