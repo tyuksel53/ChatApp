@@ -5,7 +5,12 @@
 
 ### Ekran Görüntüsü
 
+#### TCP-IP Socket (Desktop Client)
 ![](screenshot/gif1.gif)
+
+#### SignalR (Web Client)
+![](screenshot/gif12.gif)
+
 
 ### Projenin Amacı:
 
